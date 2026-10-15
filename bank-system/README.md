@@ -22,10 +22,11 @@ g++ bank_system.cpp Account.cpp -o bank_system
 ```
 
 ## Project Structure
+```
 bank-system/
 ├── bank_system.cpp
 ├── Account.h
 └── Account.cpp
-
+```
 ## Author
 Mohamed Hisham
