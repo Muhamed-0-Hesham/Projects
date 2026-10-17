@@ -11,7 +11,7 @@ int main()
 {
     Account account;
     int x,y;
-    string n;
+    string s,p;
     double b;
     cout<<"How many Transaction do you want to do";
     cin>>x;
@@ -24,11 +24,20 @@ int main()
       cout<<"if you want to transfer press: 5 \n";
       cout<<"if you want to getBalance press: 6 \n";
       cin>>y;
+   
       switch (y)
       {
        case 1:
+        cout<<"Write your name: "; cin>>s;
+        cout<<"How much money do you want to deposit in your account : "; cin>>b;
+        cout<<"What is your pin";  cin>>p;
+        account=Account(s,b,p);
+        account.createAccount();
         break;
         case 2:
+        cout<<"Write your name: ";  cin>>s;
+        cout<<"What is your pin";   cin>>p;
+        account.deleteAccount(s,p);        
         break;
         case 3:
         break;

@@ -1,33 +1,35 @@
 #pragma once
 #include <string>
+#include <fstream>
 using namespace std;
 
 class Account
 {
  private:
+    static int nextid;
     int id;
-    string name;
+    string name,pin;
     double balance;
+    
 
  public:
     Account();
-    Account(int i,string n);
-    void deposit( );
-    void withdraw( );
-    bool transfer();
-    double getBalance();
-    void display();
-    void display();
-    void createAccount( );
-    int getId();
-    string getName();
-};
+    Account(string n, double b, string p);
 
-class date
-{
- private:
-    int secound,minute,hour,day,month,year;
- public:
-   date(int s,int mi,int h,int d,int mo,int y);
+    void createAccount( );
+    void deleteAccount(string n, string pass);
+
+    void display();
+
+    void Deposit(double num ,string pass);
+    void Withdraw( double num , string pass);
+
+    bool Transfer();
+    bool checkpin(string pass);
    
+   double getBalance();
+    int getId();
+    string getPin();
+    string getName();
+
 };
