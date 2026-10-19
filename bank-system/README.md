@@ -4,11 +4,11 @@ A console-based bank management system written in C++ to practice
 Object-Oriented Programming and the STL.
 
 ## Features
-- [ ] Create an account
+- [x] Create an account
 - [ ] Deposit / withdraw
 - [ ] Transfer between accounts
-- [ ] Show account details
-- [ ] Save / load data from file
+- [x] Show account details
+- [x] Save / load data from file
 
 ## Concepts Practiced
 - Classes and objects, encapsulation

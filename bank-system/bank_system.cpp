@@ -9,10 +9,11 @@
 using namespace std;
 int main()
 {
-    Account account;
-    int x,y;
-    string s,p;
+   vector<Account> vv;
+    int x,y,id;
+    string name,pin;
     double b;
+    bool found,wrong_pin;
     cout<<"How many Transaction do you want to do";
     cin>>x;
     while(x--)
@@ -28,18 +29,47 @@ int main()
       switch (y)
       {
        case 1:
-        cout<<"Write your name: "; cin>>s;
+        cout<<"Write your name : "; cin>>name;
         cout<<"How much money do you want to deposit in your account : "; cin>>b;
-        cout<<"What is your pin";  cin>>p;
-        account=Account(s,b,p);
-        account.createAccount();
+        cout<<"What is your pin : ";  cin>>pin;
+         vv.push_back( Account(name,b,pin));
         break;
+        
         case 2:
-        cout<<"Write your name: ";  cin>>s;
-        cout<<"What is your pin";   cin>>p;
-        account.deleteAccount(s,p);        
+        cout<<"Write your name : ";  cin>>name;
+        cout<<"Write your Id : ";  cin>>id;
+        cout<<"What is your pin : ";   cin>>pin;
+        found=false;
+        wrong_pin=false;
+        for (int i = 0; i < vv.size(); i++)
+        {
+           if(vv[i].getId()==id)
+           {
+             if( vv[i].checkpin(pin))
+             {
+               found=true;
+              vv.erase(vv.begin() + i);
+              break;
+             }
+              else
+              {
+               wrong_pin=true;
+               break;
+              }
+           }
+         }
+         if(!found)
+         cout<<"Wrong ID";
+         else
+         if(wrong_pin)
+         cout<<"Wrong pin";
         break;
+
         case 3:
+        cout<<"Write your name : ";  cin>>name;
+        cout<<"Write your Id : ";  cin>>id;
+        cout<<"What is your pin : ";   cin>>pin;
+        
         break;
         case 4:
         break;

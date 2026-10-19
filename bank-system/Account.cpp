@@ -6,6 +6,7 @@
 using namespace std;
 
 int Account::nextid = 1;
+int Account::tempid = 0;
 
 Account::Account()
 {
@@ -20,21 +21,27 @@ Account::Account(string n , double b ,string pass)
     name = n;
     balance = b ;
     pin = pass;
+    creatId();
+    
 }
 
 void Account::Deposit(double num , string pass)
 {
+  if(checkpin(pass))
    balance+=num;   
 }
 
 void Account::Withdraw(double num , string pass)
 {
-    balance-=num;     
+   if(checkpin(pass))
+   {
+
+   }
 }
 
 bool Account::Transfer()
 {
-  
+    return true;
 }
 
 double Account::getBalance() 
@@ -66,62 +73,31 @@ void Account::display()
    
 }
 
-void Account::createAccount()
+void Account::creatId()
 {
+      if(tempid>0)
+      {
+       id=tempid;
+       tempid=0;
+      }
+      else
       id=nextid++;
-    ofstream file("data.txt", ios::app);
-    file << getName()  << '\n';
-    file <<  id << '\n';
-    file << getBalance() << '\n';
-    file << "-----------------------"<<'\n';
-    file.close();
 
+ 
 }
 
-void Account :: deleteAccount(string n, string pass)
-
+void Account :: deleteAccount(string n, string pass , int d)
 {
-
+    
     if(checkpin(pass))
     {
-    ifstream file ("data.txt");
-    ofstream tem ("temp.txt");
-    string line;
-
-    while(getline( file, line) )
-    {
-        if(line == n)
-        {
-            getline(file, line);
-            getline(file, line);
-            getline(file, line);
-        }
-        else
-        tem << line <<'\n';
-    }
-    file.close();
-    tem.close();
-    remove("data.txt");
-    rename("temp.txt","data.txt");
-  } 
-  else
-  cout<<"Wrong pin";
-
-
+  
+    } 
 }
+
 bool Account::checkpin (string pass)
 {
-    int x=3;
-    
-    while(x>0)
-    {
-        if(pass==pin)
-        return true;
-        else
-        {
-            cout<<"Wrong pin you have "<<x<<"try\n";
-            cin>>pass;
-        }
-    }
-
+     if(pass==pin)
+     return true;
+    return false;
 }
