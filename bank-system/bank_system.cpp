@@ -7,78 +7,65 @@
 #include <fstream>
 #include "Account.h"
 using namespace std;
+void menuu ()
+  {
+    cout << "\n===== Bank System =====\n";
+    cout << "1. Create Account\n";
+    cout << "2. Delete Account\n";
+    cout << "3. Deposit\n";
+    cout << "4. Withdraw\n";
+    cout << "5. Transfer\n";
+    cout << "6. Get info\n";
+    cout << "0. Exit\n";
+    cout << "Choose: ";
+  }
 int main()
 {
-   vector<Account> vv;
-    int x,y,id;
+    vector<Account> vv;
+    int choice,x=1,id;
     string name,pin;
-    double b;
-    bool found,wrong_pin;
-    cout<<"How many Transaction do you want to do";
-    cin>>x;
-    while(x--)
-   {  
-      cout<<"if you want to createAccount press: 1 \n";
-      cout<<"if you want to deleteAccount press: 2 \n";
-      cout<<"if you want to deposit press: 3 \n";
-      cout<<"if you want to withdraw press: 4 \n";
-      cout<<"if you want to transfer press: 5 \n";
-      cout<<"if you want to getBalance press: 6 \n";
-      cin>>y;
-   
-      switch (y)
+    double money;
+
+    do{
+      Account acc;
+      menuu();
+      cin>>choice;
+      switch (choice)
       {
        case 1:
-        cout<<"Write your name : "; cin>>name;
-        cout<<"How much money do you want to deposit in your account : "; cin>>b;
-        cout<<"What is your pin : ";  cin>>pin;
-         vv.push_back( Account(name,b,pin));
+        cout<<"Write your name : \n"; cin>>name;
+        cout<<"How much money do you want to deposit in your account : \n"; cin>>money;
+        cout<<"What is your pin : \n";  cin>>pin;
+         vv.push_back( Account(name,money,pin));
         break;
-        
         case 2:
-        cout<<"Write your name : ";  cin>>name;
-        cout<<"Write your Id : ";  cin>>id;
-        cout<<"What is your pin : ";   cin>>pin;
-        found=false;
-        wrong_pin=false;
-        for (int i = 0; i < vv.size(); i++)
-        {
-           if(vv[i].getId()==id)
-           {
-             if( vv[i].checkpin(pin))
-             {
-               found=true;
-              vv.erase(vv.begin() + i);
-              break;
-             }
-              else
-              {
-               wrong_pin=true;
-               break;
-              }
-           }
-         }
-         if(!found)
-         cout<<"Wrong ID";
-         else
-         if(wrong_pin)
-         cout<<"Wrong pin";
+        cout<<"Write your Id : \n";  cin>>id;
+        cout<<"What is your pin : \n";   cin>>pin;
+          Account::deleteAccount(vv, id, pin);
         break;
-
         case 3:
-        cout<<"Write your name : ";  cin>>name;
-        cout<<"Write your Id : ";  cin>>id;
-        cout<<"What is your pin : ";   cin>>pin;
-        
+        cout<<"Write your Id : \n";    cin>>id;
+        cout<<"What is your pin : \n"; cin>>pin;
+        cout<<"How much money do you want to deposit in your account \n";cin>>money;
+        Account::Deposit(vv,money,pin,id);
         break;
         case 4:
+        cout<<"Write your Id : \n";    cin>>id;
+        cout<<"What is your pin : \n"; cin>>pin;
+        cout<<"How much money do you want to Withdraw from your account \n";cin>>money;
+        Account::Withdraw(vv,money,pin,id);
         break;
         case 5:
         break;
         case 6:
+        cout<<"Write your Id : \n";    cin>>id;
+        cout<<"What is your pin : \n"; cin>>pin;
+        Account::display(vv,pin, id);
         break;
        default:
+        x=0;
         break;
       }
-   }
+      
+    }while(x!=0);
 }

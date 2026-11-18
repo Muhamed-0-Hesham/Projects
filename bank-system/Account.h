@@ -1,6 +1,12 @@
 #pragma once
-#include <string>
+#include <iostream>
+#include <algorithm>   
+#include <string>     
+#include <vector> 
+#include <queue>
+#include <iomanip>
 #include <fstream>
+#include "Account.h"
 using namespace std;
 
 class Account
@@ -15,15 +21,20 @@ class Account
     Account();
     Account(string n, double b, string p);
   
-    void deleteAccount(string n, string pass,int d);
-    void display();
-    void Deposit(double num ,string pass);
-    void Withdraw( double num , string pass);
-    bool Transfer();
+    static void deleteAccount(vector<Account>& vv ,int id,string pin);
+    static void Deposit      (vector<Account>& vv, double num , string pass,int id);
+    static void Withdraw     (vector<Account>& vv, double num , string pass,int id);
+    static void  display   (vector<Account> &vv,string pass,int id);
+
+    bool Transfer(vector<Account>& vv);
     bool checkpin(string pass);
-   double getBalance();
+
+    double getBalance();
+       
     int getId();
+    
     string getPin();
     string getName();
 
+    void display();
 };

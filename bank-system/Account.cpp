@@ -1,8 +1,12 @@
 #include "Account.h"
-#include <iomanip>
 #include <iostream>
+#include <algorithm>   
+#include <string>     
+#include <vector> 
+#include <queue>
+#include <iomanip>
 #include <fstream>
-#include <vector>
+#include "Account.h"
 using namespace std;
 
 int Account::nextid = 1;
@@ -16,30 +20,77 @@ Account::Account()
     
 }
 
-Account::Account(string n , double b ,string pass)
+Account::Account(string n , double money ,string pass)
 {
     name = n;
-    balance = b ;
+    balance = money ;
     pin = pass;
     creatId();
     
 }
 
-void Account::Deposit(double num , string pass)
+void Account::Deposit(vector<Account>&vv,double num , string pass,int id)
 {
-  if(checkpin(pass))
-   balance+=num;   
+       bool found=false;
+       bool wrong_pin=false;
+       
+        for (int i = 0; i < vv.size(); i++)
+        {
+           if(vv[i].getId()==id)
+           {
+             if( vv[i].checkpin(pass))
+             {
+               found=true;
+               vv[i].balance+=num;
+              break;
+             }
+              else
+              {
+               wrong_pin=true;
+               break;
+              }
+           }
+         }
+         if(!found)
+         cout<<"Wrong ID";
+         else
+         if(wrong_pin)
+         cout<<"Wrong pin";   
 }
 
-void Account::Withdraw(double num , string pass)
+void Account::Withdraw(vector<Account>&vv, double num , string pass,int id)
 {
-   if(checkpin(pass))
-   {
-
-   }
+       bool found=false;
+       bool wrong_pin=false;
+       
+        for (int i = 0; i < vv.size(); i++)
+        {
+           if(vv[i].getId()==id)
+           {
+             if( vv[i].checkpin(pass))
+             {
+               found=true;
+               if( vv[i].balance > num)
+               vv[i].balance-=num;
+               else
+               cout<<"your current balance is : "<<vv[i].balance<<"\n";
+              break;
+             }
+              else
+              {
+               wrong_pin=true;
+               break;
+              }
+           }
+         }
+         if(!found)
+         cout<<"Wrong ID";
+         else
+         if(wrong_pin)
+         cout<<"Wrong pin";   
 }
 
-bool Account::Transfer()
+bool Account::Transfer(vector<Account>&vv)
 {
     return true;
 }
@@ -86,13 +137,34 @@ void Account::creatId()
  
 }
 
-void Account :: deleteAccount(string n, string pass , int d)
+void Account :: deleteAccount(vector<Account> &vv ,int id,string pass )
 {
+       bool found=false;
+       bool wrong_pin=false;
+       
+        for (int i = 0; i < vv.size(); i++)
+        {
+           if(vv[i].getId()==id)
+           {
+             if( vv[i].checkpin(pass))
+             {
+               found=true;
+              vv.erase(vv.begin() + i);
+              break;
+             }
+              else
+              {
+               wrong_pin=true;
+               break;
+              }
+           }
+         }
+         if(!found)
+         cout<<"Wrong ID";
+         else
+         if(wrong_pin)
+         cout<<"Wrong pin";
     
-    if(checkpin(pass))
-    {
-  
-    } 
 }
 
 bool Account::checkpin (string pass)
@@ -100,4 +172,32 @@ bool Account::checkpin (string pass)
      if(pass==pin)
      return true;
     return false;
+}
+double display(vector<Account> &vv,string pass,int id)
+{
+           bool found=false;
+       bool wrong_pin=false;
+       
+        for (int i = 0; i < vv.size(); i++)
+        {
+           if(vv[i].getId()==id)
+           {
+             if( vv[i].checkpin(pass))
+             {
+               found=true;
+              vv[i].display();
+              break;
+             }
+              else
+              {
+               wrong_pin=true;
+               break;
+              }
+           }
+         }
+         if(!found)
+         cout<<"Wrong ID";
+         else
+         if(wrong_pin)
+         cout<<"Wrong pin";
 }
