@@ -22,21 +22,28 @@ void menuu ()
 int main()
 {
     vector<Account> vv;
-    int choice,x=1,id;
+    int choice,id,to_id;
     string name,pin;
     double money;
+    bool op=true;
 
-    do{
-      Account acc;
+    while(op)
+    {
       menuu();
       cin>>choice;
       switch (choice)
       {
        case 1:
-        cout<<"Write your name : \n"; cin>>name;
+        cout<<"Write your name : \n"; cin.ignore(10000, '\n'); getline(cin,name);
         cout<<"How much money do you want to deposit in your account : \n"; cin>>money;
         cout<<"What is your pin : \n";  cin>>pin;
+        if (money < 0)
+       {
+        cout << "Invalid amount\n";
+        break;                      
+       }
          vv.push_back( Account(name,money,pin));
+        cout << "Account created. Your id is : " << vv.back().getId() << "\n";
         break;
         case 2:
         cout<<"Write your Id : \n";  cin>>id;
@@ -56,16 +63,23 @@ int main()
         Account::Withdraw(vv,money,pin,id);
         break;
         case 5:
+        cout<<"Write your Id : \n";    cin>>id;
+        cout<<"What is your pin : \n"; cin>>pin;
+        cout<<"How much money do you want to transfer from your account \n";cin>>money;
+        cout<<"Write Receiver account Id : \n";    cin>>to_id;
+        Account::Transfer(vv,money,pin,id,to_id);
         break;
         case 6:
         cout<<"Write your Id : \n";    cin>>id;
         cout<<"What is your pin : \n"; cin>>pin;
         Account::display(vv,pin, id);
         break;
-       default:
-        x=0;
+        case 0:
+        op=false;
+        break;
+        default:
+        cout << "Invalid choice\n";
         break;
       }
-      
-    }while(x!=0);
+    }
 }

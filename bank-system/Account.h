@@ -6,7 +6,6 @@
 #include <queue>
 #include <iomanip>
 #include <fstream>
-#include "Account.h"
 using namespace std;
 
 class Account
@@ -23,18 +22,15 @@ class Account
   
     static void deleteAccount(vector<Account>& vv ,int id,string pin);
     static void Deposit      (vector<Account>& vv, double num , string pass,int id);
-    static void Withdraw     (vector<Account>& vv, double num , string pass,int id);
-    static void  display   (vector<Account> &vv,string pass,int id);
-
-    bool Transfer(vector<Account>& vv);
-    bool checkpin(string pass);
-
-    double getBalance();
-       
-    int getId();
+    static bool Withdraw     (vector<Account>& vv, double num , string pass,int id);
+    static void  display     (vector<Account> &vv,string pass,int id);
+    static int findAccount  (vector<Account> &vv,int id);
+    static bool Transfer     (vector<Account>& vv,double num , string pass, int from_id, int to_id);
     
+    bool checkpin(string pass);
+    double getBalance();       
+    int getId();
     string getPin();
     string getName();
-
-    void display();
+    void showInfo();
 };
